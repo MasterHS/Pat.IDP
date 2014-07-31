@@ -151,7 +151,7 @@ public class ConnectToDatabase {
 		// SettingsRetrieval SR=new SettingsRetrieval();
 		// String pgnuplotPath=SR.GetParam("PGNUPLOT");
 		// JavaPlot p = new JavaPlot(pgnuplotPath);
-		//String s = readFile(dataFilepath);
+		String s = readFile(dataFilepath);
 		
 		//sudo port install gnuplot +wxwidgets to install this variant, but be careful it may conflict with wxwidgets_devel.
 		try {
@@ -177,7 +177,7 @@ public class ConnectToDatabase {
 				}
 				else
 				{
-					command="gnuplot -e \"load '" + tempFilePath + "'\"";
+					 command="gnuplot -e \"load '"+tempFilePath+"'\"";
 				}
 				
 			}
