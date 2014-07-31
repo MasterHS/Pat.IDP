@@ -1,0 +1,28 @@
+set terminal wxt
+set title "Patent Cloud"
+set xlabel "Publication Date"
+set ylabel "Citations Number"
+set datafile separator ","
+filename='/Users/Hazem/Documents/workspace/Hello World/out/data.dat'
+stats filename using 4 nooutput
+
+set xdata time
+set timefmt '%Y-%m-%d'
+set format x '%Y'
+
+
+
+rand_x(x) = x + 60*60*24*7 * (rand(0) - 0.5)
+rand_y(y) = y + (rand(0) - 0.5)
+
+
+plot for [i=0:int(STATS_max)-1] filename \
+using (rand_x(timecolumn(1))):(i < $4 ? rand_y($2) : 1/0):3 pointtype 7 linecolor palette notitle
+
+set xrange [GPVAL_DATA_X_MIN:GPVAL_DATA_X_MAX]
+set yrange [0:GPVAL_DATA_Y_MAX]
+
+pause mouse close
+set term pngcairo
+set output 
+replot
