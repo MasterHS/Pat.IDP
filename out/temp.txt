@@ -3,7 +3,7 @@ set title "Patent Cloud"
 set xlabel "Publication Date"
 set ylabel "Citations Number"
 set datafile separator ","
-filename='C:/Users/Hazem/workspace/Pat.IDP/out/data.dat'
+filename='/Users/Hazem/Documents/workspace/Pat.IDP/out/data.dat'
 stats filename using 4 nooutput
 
 set xdata time
@@ -24,5 +24,5 @@ set yrange [0:GPVAL_DATA_Y_MAX]
 
 pause mouse close
 set term pngcairo
-set output 'C:\Users\Hazem\workspace\Pat.IDP\out\output.png'
+set output '/Users/Hazem/Documents/workspace/Pat.IDP/out/output.png'
 replot

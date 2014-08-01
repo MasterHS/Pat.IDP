@@ -162,48 +162,45 @@ public class ConnectToDatabase {
 					+ "/out/temp.txt";
 			//Process p = Runtime.getRuntime().exec("gnuplot -e \"load '" + tempFilePath + "'\"");
 			
-			String command;
-			String[] comm1={""};
-			command="/opt/local/bin/gnuplot \"" + tempFilePath + "\"";
+			String[] command={};
+			//command="/opt/local/bin/gnuplot \"" + tempFilePath + "\"";
 			File f = new File("/opt/local/bin/gnuplot");
 			if(f.exists()) {
 				//command="/opt/local/bin/gnuplot \"" + tempFilePath + "\"";
 				//command="/opt/local/bin/gnuplot -e \"load '"+tempFilePath+"'\"";
-				command="sh -c \"gnuplot " + tempFilePath + "\"";
-			comm1=new String[]{"/opt/local/bin/gnuplot",
-					"-e",
-					tempFilePath};
+				//command="sh -c \"/opt/local/bin/gnuplot " + tempFilePath + "\"";
+				command=new String[]{"/opt/local/bin/gnuplot",tempFilePath};
 			}
 			else
 			{
 				f = new File("/usr/local/bin/gnuplot");
 				if(f.exists()) {
-					command="/usr/local/bin/gnuplot \"" + tempFilePath + "\"";
+					//command="/usr/local/bin/gnuplot \"" + tempFilePath + "\"";
+					command=new String[]{"/usr/local/bin/gnuplot",tempFilePath};
 				}
 				else
 				{
-					 command="gnuplot -e \"load '"+tempFilePath+"'\"";
+					 //command="gnuplot -e \"load '"+tempFilePath+"'\"";
+					 command=new String[]{"gnuplot",
+							 "-e",
+							 tempFilePath};
 				}
 				
 			}
 			System.out.println(command);
-			Process p = Runtime.getRuntime().exec(command);
-			p.waitFor();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					p.getInputStream()));
-			String line = reader.readLine();
-			while (line != null) {
-				System.out.println(line);
-				line = reader.readLine();
-			}
+
+			//ProcessBuilder pb = new ProcessBuilder(new String[] { "/opt/local/bin/gnuplot", tempFilePath });
+			ProcessBuilder pb = new ProcessBuilder(command);
+			Process p = pb.start();
+			//int exitCode = p.waitFor();
+		
 
 		} catch (IOException e1) {
 			throw new Exception("Exception: "+e1.getMessage());
-		} catch (InterruptedException e2) {
-			throw new Exception("Exception: "+e2.getMessage());
-		}
+		} 
 
 		System.out.println("Done");
+	
 
 	}
 
