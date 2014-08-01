@@ -62,7 +62,7 @@ public class ConnectToDatabase {
 			Connection conn = DriverManager.getConnection(url, uName, uPass);
 			String SQL = "{call temp.Start_Procedure('" + auth + "','" + publnr
 					+ "','" + kind + "','" + withFamYN + "')}";
-			System.out.print(SQL);
+			System.out.println(SQL);
 			cstmt = conn.prepareCall(SQL);
 			cstmt.setQueryTimeout(timeOut);
 			cstmt.executeQuery();
@@ -163,11 +163,16 @@ public class ConnectToDatabase {
 			//Process p = Runtime.getRuntime().exec("gnuplot -e \"load '" + tempFilePath + "'\"");
 			
 			String command;
-			
+			String[] comm1={""};
 			command="/opt/local/bin/gnuplot \"" + tempFilePath + "\"";
 			File f = new File("/opt/local/bin/gnuplot");
 			if(f.exists()) {
-				command="/opt/local/bin/gnuplot --persist \"" + tempFilePath + "\"";
+				//command="/opt/local/bin/gnuplot \"" + tempFilePath + "\"";
+				//command="/opt/local/bin/gnuplot -e \"load '"+tempFilePath+"'\"";
+				command="sh -c \"gnuplot " + tempFilePath + "\"";
+			comm1=new String[]{"/opt/local/bin/gnuplot",
+					"-e",
+					tempFilePath};
 			}
 			else
 			{
@@ -241,7 +246,7 @@ public class ConnectToDatabase {
 			SettingsRetrieval SR = new SettingsRetrieval();
 			String dataFile = "filename='" + dataFilePath + "'";
 			String pngFilename = "set output '" + SR.GetParam("WORKSPACE")
-					+ "\\out\\output.png'";
+					+ "/out/output.png'";
 			String templateFilename = "";
 			if (_mode == 1)// 2d+without are selected
 			{
