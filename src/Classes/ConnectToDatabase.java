@@ -6,8 +6,6 @@ import java.io.*;
 
 import javax.swing.JOptionPane;
 
-import com.panayotis.gnuplot.JavaPlot;
-
 public class ConnectToDatabase {
 
 	String url;
@@ -134,7 +132,6 @@ public class ConnectToDatabase {
 				file.createNewFile();
 				accessed = true;
 			}
-
 			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
@@ -143,65 +140,40 @@ public class ConnectToDatabase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void drawToGnuplot() throws Exception {
-		// C:/Program Files (x86)/gnuplot/bin/pgnuplot.exe
-		// SettingsRetrieval SR=new SettingsRetrieval();
-		// String pgnuplotPath=SR.GetParam("PGNUPLOT");
-		// JavaPlot p = new JavaPlot(pgnuplotPath);
-		String s = readFile(dataFilepath);
-		
+		readFile(dataFilepath);
 		//sudo port install gnuplot +wxwidgets to install this variant, but be careful it may conflict with wxwidgets_devel.
 		try {
 			SettingsRetrieval SR = new SettingsRetrieval();
 			String workspacepath = SR.GetParam("WORKSPACE");
 
 			String tempFilePath = workspacepath.replaceAll("\\\\", "/")
-					+ "/out/temp.txt";
-			//Process p = Runtime.getRuntime().exec("gnuplot -e \"load '" + tempFilePath + "'\"");
-			
+					+ "/out/temp.txt";			
 			String[] command={};
-			//command="/opt/local/bin/gnuplot \"" + tempFilePath + "\"";
 			File f = new File("/opt/local/bin/gnuplot");
-			if(f.exists()) {
-				//command="/opt/local/bin/gnuplot \"" + tempFilePath + "\"";
-				//command="/opt/local/bin/gnuplot -e \"load '"+tempFilePath+"'\"";
-				//command="sh -c \"/opt/local/bin/gnuplot " + tempFilePath + "\"";
+			if(f.exists()) {//some gnuplot versions use this path
 				command=new String[]{"/opt/local/bin/gnuplot",tempFilePath};
 			}
 			else
 			{
 				f = new File("/usr/local/bin/gnuplot");
-				if(f.exists()) {
-					//command="/usr/local/bin/gnuplot \"" + tempFilePath + "\"";
+				if(f.exists()) {//other gnuplot versions use this path
 					command=new String[]{"/usr/local/bin/gnuplot",tempFilePath};
 				}
-				else
+				else//for windows
 				{
-					 //command="gnuplot -e \"load '"+tempFilePath+"'\"";
-					 command=new String[]{"gnuplot",
-							 "-e",
-							 tempFilePath};
+					 command=new String[]{"gnuplot",tempFilePath};
 				}
-				
 			}
-			System.out.println(command);
-
-			//ProcessBuilder pb = new ProcessBuilder(new String[] { "/opt/local/bin/gnuplot", tempFilePath });
 			ProcessBuilder pb = new ProcessBuilder(command);
-			Process p = pb.start();
-			//int exitCode = p.waitFor();
-		
+			pb.start();
 
 		} catch (IOException e1) {
 			throw new Exception("Exception: "+e1.getMessage());
 		} 
-
 		System.out.println("Done");
-	
-
 	}
 
 	public void replace(String oldFileName, String newFileName,
@@ -237,7 +209,7 @@ public class ConnectToDatabase {
 
 	}
 
-	private String readFile(String dataFilePath) {
+	private void readFile(String dataFilePath) {
 		String content = "";
 		try {
 			SettingsRetrieval SR = new SettingsRetrieval();
@@ -289,10 +261,8 @@ public class ConnectToDatabase {
 						.useDelimiter("\\Z").next();
 			}
 
-			return content;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return "";
 	}
 }
