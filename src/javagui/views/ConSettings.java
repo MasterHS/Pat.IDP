@@ -3,54 +3,26 @@ package javagui.views;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 
 import java.io.File;
-//import java.nio.file.*;
-import java.awt.GridBagLayout;
-
-import javax.swing.JSplitPane;
-
-import java.awt.BorderLayout;
-
 import Classes.ConnectToDatabase;
 import Classes.SettingsRetrieval;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
-import java.awt.GridLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JPasswordField;
-import javax.swing.JFormattedTextField;
-
-//import java.awt.Window.Type;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
-
-import javax.swing.SwingConstants;
-import javax.swing.JFileChooser;
 public class ConSettings {
 
 	public JFrame frmConnectionSettings;
@@ -184,7 +156,6 @@ public class ConSettings {
 		panel.add(btnTestConnection);
 		btnTestConnection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SettingsRetrieval SR=new SettingsRetrieval();
 				ConnectToDatabase con=new ConnectToDatabase(txtHostname.getText(),
 						txtPort.getText(),
 						txtUsername.getText(),
