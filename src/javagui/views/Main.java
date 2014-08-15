@@ -110,6 +110,14 @@ public class Main extends JFrame {
 		final JCheckBox chkptnfam = new JCheckBox("Include patent family");
 		chkptnfam.setBounds(318, 271, 180, 23);
 		
+		final JCheckBox chkAllowCircularPatents = new JCheckBox("Allow circular patents");
+		chkAllowCircularPatents.setBounds(318, 297, 190, 23);
+		
+		final JCheckBox chkTimeOrder = new JCheckBox("Allow patent publication date order");
+		chkTimeOrder.setSelected(true);
+		chkTimeOrder.setBounds(318, 322, 276, 23);
+		
+		
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 627, 21);
 		
@@ -199,7 +207,7 @@ public class Main extends JFrame {
 				));
 				
 				JButton btnGetCloud = new JButton("Plot");
-				btnGetCloud.setBounds(292, 341, 127, 39);
+				btnGetCloud.setBounds(10, 356, 127, 39);
 				
 				btnGetCloud.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -266,9 +274,9 @@ public class Main extends JFrame {
 									c.setDataFilePath(dataFilePath);									
 									c.serLayerNumber(txtLayer.getText());
 									c.setTimeout(Integer.parseInt(txtSeconds.getText()));
-									c.setCircularFlag(false);
+									c.setCircularFlag(chkAllowCircularPatents.isSelected());
 									c.setMaxLevel(Integer.parseInt(txtMaxLevel.getText()));
-									c.setTimeOrderFlag(true);
+									c.setTimeOrderFlag(chkTimeOrder.isSelected());
 									if(chkptnfam.isSelected())
 										c.runStoredProcedure(auth,number,kind,"Y");
 									else
@@ -379,7 +387,7 @@ public class Main extends JFrame {
 						}
 					}
 				});
-				btnRefresh.setBounds(425, 341, 136, 39);
+				btnRefresh.setBounds(155, 356, 136, 39);
 				panel_2.setLayout(null);
 				
 				JLabel lblDisconnectQueryAfter = new JLabel("Disconnect query after: ");
@@ -446,6 +454,8 @@ public class Main extends JFrame {
 				getContentPane().add(panel_1);
 				getContentPane().add(panel);
 				getContentPane().add(chkptnfam);
+				getContentPane().add(chkTimeOrder);
+				getContentPane().add(chkAllowCircularPatents);
 				getContentPane().add(panel_2);
 				
 				JLabel lblMaxLevel = new JLabel("Max Level:");
@@ -490,7 +500,9 @@ public class Main extends JFrame {
 			        
 					}
 				});
-				btnGetLastPlot.setBounds(318, 306, 163, 23);
+				btnGetLastPlot.setBounds(318, 364, 163, 23);
 				getContentPane().add(btnGetLastPlot);
+				
+
 	}
 }
