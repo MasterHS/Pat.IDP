@@ -73,6 +73,7 @@ public class Main extends JFrame {
 	private final ButtonGroup bG_Hypertext = new ButtonGroup();
 	private JTextField txtSeconds;
 	private JTextField txtLayer;
+	private JTextField txtMaxLevel;
 
 	/**
 	 * Launch the application.
@@ -104,13 +105,13 @@ public class Main extends JFrame {
 		setResizable(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 595, 436);
+		setBounds(100, 100, 633, 436);
 		
 		final JCheckBox chkptnfam = new JCheckBox("Include patent family");
-		chkptnfam.setBounds(318, 226, 127, 23);
+		chkptnfam.setBounds(318, 271, 180, 23);
 		
 		menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 581, 21);
+		menuBar.setBounds(0, 0, 627, 21);
 		
 		mnView = new JMenu("View");
 		menuBar.add(mnView);
@@ -266,7 +267,7 @@ public class Main extends JFrame {
 									c.serLayerNumber(txtLayer.getText());
 									c.setTimeout(Integer.parseInt(txtSeconds.getText()));
 									c.setCircularFlag(false);
-									c.setMaxLevel(4);
+									c.setMaxLevel(Integer.parseInt(txtMaxLevel.getText()));
 									c.setTimeOrderFlag(true);
 									if(chkptnfam.isSelected())
 										c.runStoredProcedure(auth,number,kind,"Y");
@@ -289,21 +290,19 @@ public class Main extends JFrame {
 				});
 				
 				JPanel panel = new JPanel();
-				panel.setBounds(318, 39, 243, 35);
+				panel.setBounds(318, 39, 309, 35);
 				FlowLayout flowLayout_1 = (FlowLayout) panel.getLayout();
 				flowLayout_1.setAlignment(FlowLayout.LEFT);
 				panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 				
 				JPanel panel_1 = new JPanel();
-				panel_1.setBounds(318, 80, 243, 65);
+				panel_1.setBounds(318, 80, 309, 65);
 				FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
 				flowLayout.setAlignment(FlowLayout.LEFT);
 				panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 				
 				JPanel panel_2 = new JPanel();
-				panel_2.setBounds(318, 156, 243, 63);
-				FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
-				flowLayout_2.setAlignment(FlowLayout.LEFT);
+				panel_2.setBounds(318, 156, 309, 103);
 				panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 				
 				JButton btnRefresh = new JButton("Refresh");
@@ -381,22 +380,28 @@ public class Main extends JFrame {
 					}
 				});
 				btnRefresh.setBounds(425, 341, 136, 39);
+				panel_2.setLayout(null);
 				
 				JLabel lblDisconnectQueryAfter = new JLabel("Disconnect query after: ");
+				lblDisconnectQueryAfter.setBounds(6, 12, 151, 16);
 				panel_2.add(lblDisconnectQueryAfter);
 				
 				txtSeconds = new JTextField();
+				txtSeconds.setBounds(162, 6, 74, 28);
 				txtSeconds.setText("30");
 				panel_2.add(txtSeconds);
 				txtSeconds.setColumns(5);
 				
 				JLabel lblSeconds = new JLabel("Seconds");
+				lblSeconds.setBounds(241, 12, 52, 16);
 				panel_2.add(lblSeconds);
 				
 				JLabel lblActiveLayerd = new JLabel("Active Layer Numr (3D):");
+				lblActiveLayerd.setBounds(6, 45, 149, 16);
 				panel_2.add(lblActiveLayerd);
 				
 				txtLayer = new JTextField();
+				txtLayer.setBounds(160, 39, 74, 28);
 				txtLayer.setText("1");
 				txtLayer.setColumns(5);
 				panel_2.add(txtLayer);
@@ -443,6 +448,16 @@ public class Main extends JFrame {
 				getContentPane().add(chkptnfam);
 				getContentPane().add(panel_2);
 				
+				JLabel lblMaxLevel = new JLabel("Max Level:");
+				lblMaxLevel.setBounds(6, 73, 151, 16);
+				panel_2.add(lblMaxLevel);
+				
+				txtMaxLevel = new JTextField();
+				txtMaxLevel.setText("10");
+				txtMaxLevel.setBounds(162, 67, 74, 28);
+				panel_2.add(txtMaxLevel);
+				txtMaxLevel.setColumns(10);
+				
 				JButton btnGetLastPlot = new JButton("Get last plot as png file");
 				btnGetLastPlot.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -475,7 +490,7 @@ public class Main extends JFrame {
 			        
 					}
 				});
-				btnGetLastPlot.setBounds(318, 256, 163, 23);
+				btnGetLastPlot.setBounds(318, 306, 163, 23);
 				getContentPane().add(btnGetLastPlot);
 	}
 }
