@@ -16,7 +16,9 @@ public class ConnectToDatabase {
 	String layer;
 	String tmpFileName = "out/temp.txt";
 	String dataFilepath;
-
+	boolean circularPatents;
+	boolean timeOrder;
+	int maxLevel;
 	public void setMode(int m) {
 		_mode = m;
 	}
@@ -32,7 +34,19 @@ public class ConnectToDatabase {
 	public void setDataFilePath(String path) {
 		dataFilepath = path;
 	}
-
+	
+	public void setCircularFlag(boolean circularFlag) {
+		circularPatents = circularFlag;
+	}
+	
+	public void setMaxLevel(int maxlevel) {
+		maxLevel = maxlevel;
+	}
+	
+	public void setTimeOrderFlag(boolean timeOrderFlag) {
+		timeOrder = timeOrderFlag;
+	}
+	
 	public ConnectToDatabase(String vHostName, String vPort, String vUsername,
 			String vPassword) {
 		this.url = "jdbc:mysql://" + vHostName + ":" + vPort + "/";
@@ -59,7 +73,8 @@ public class ConnectToDatabase {
 		try {
 			Connection conn = DriverManager.getConnection(url, uName, uPass);
 			String SQL = "{call temp.Start_Procedure('" + auth + "','" + publnr
-					+ "','" + kind + "','" + withFamYN + "')}";
+					+ "','" + kind + "','" + withFamYN + "'," + this.maxLevel  + "," + this.timeOrder + "," + this.circularPatents +					
+					")}";
 			System.out.println(SQL);
 			cstmt = conn.prepareCall(SQL);
 			cstmt.setQueryTimeout(timeOut);

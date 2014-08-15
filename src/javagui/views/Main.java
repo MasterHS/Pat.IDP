@@ -265,6 +265,9 @@ public class Main extends JFrame {
 									c.setDataFilePath(dataFilePath);									
 									c.serLayerNumber(txtLayer.getText());
 									c.setTimeout(Integer.parseInt(txtSeconds.getText()));
+									c.setCircularFlag(false);
+									c.setMaxLevel(4);
+									c.setTimeOrderFlag(true);
 									if(chkptnfam.isSelected())
 										c.runStoredProcedure(auth,number,kind,"Y");
 									else
@@ -365,14 +368,7 @@ public class Main extends JFrame {
 									c.setDataFilePath(dataFilePath);									
 									c.serLayerNumber(txtLayer.getText());
 									c.setTimeout(Integer.parseInt(txtSeconds.getText()));
-									//if(chkptnfam.isSelected())
-									//	c.runStoredProcedure(auth,number,kind,"Y");
-									//else
-									//	c.runStoredProcedure(auth,number,kind,"N");
-									
-									//c.getPoints(i+1);
-									
-							
+						
 							}
 							
 						try {
