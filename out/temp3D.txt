@@ -3,7 +3,7 @@ set title "Patent Cloud"
 set xlabel "Publication Date"
 set zlabel "Citations Number"
 set datafile separator ","
-filename='C:/Users/Hazem/workspace/Hello World/out/data.dat'
+filename='C:/Users/Hazem/workspace/Pat.IDP/out/data.dat'
 stats filename using 4 nooutput
 
 set xdata time

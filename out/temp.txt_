@@ -2,8 +2,10 @@ set terminal wxt
 set title "Patent Cloud"
 set xlabel "Publication Date"
 set ylabel "Citations Number"
+set grid ytics lc rgb "#bbbbbb" lw 1 lt 0
+set grid xtics lc rgb "#bbbbbb" lw 1 lt 0
 set datafile separator ","
-filename='/Users/Hazem/Documents/workspace/Pat.IDP/out/data.dat'
+filename='C:/Users/Hazem/workspace/Pat.IDP/out/data.dat'
 stats filename using 4 nooutput
 
 set xdata time

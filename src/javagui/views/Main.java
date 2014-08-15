@@ -202,7 +202,13 @@ public class Main extends JFrame {
 				
 				btnGetCloud.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
+						SettingsRetrieval SR=new SettingsRetrieval();
+						String workspacepath=SR.GetParam("WORKSPACE");
+						String dataFilePath=workspacepath.replaceAll("\\\\", "/")+"/out/data.dat";		
+						File f=new File(dataFilePath);
+						if(f.exists())
+							f.delete();
+						System.out.println(dataFilePath);
 						int rowsCount=Jtable1.getRowCount();						
 						if(rowsCount>0)
 						{
@@ -255,13 +261,7 @@ public class Main extends JFrame {
 									String number=Jtable1.getValueAt(i, 1).toString();
 									String kind=Jtable1.getValueAt(i, 2).toString();
 									c.setMode(modeHyper);
-									SettingsRetrieval SR=new SettingsRetrieval();
-									String workspacepath=SR.GetParam("WORKSPACE");
-									String dataFilePath=workspacepath.replaceAll("\\\\", "/")+"/out/data.dat";		
-									File f=new File(dataFilePath);
-									if(f.exists())
-										f.delete();
-									System.out.println(dataFilePath);
+									
 									c.setDataFilePath(dataFilePath);									
 									c.serLayerNumber(txtLayer.getText());
 									c.setTimeout(Integer.parseInt(txtSeconds.getText()));
@@ -390,7 +390,7 @@ public class Main extends JFrame {
 				panel_2.add(lblDisconnectQueryAfter);
 				
 				txtSeconds = new JTextField();
-				txtSeconds.setText("90");
+				txtSeconds.setText("30");
 				panel_2.add(txtSeconds);
 				txtSeconds.setColumns(5);
 				

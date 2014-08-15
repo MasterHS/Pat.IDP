@@ -77,7 +77,7 @@ public class ConnectToDatabase {
 		try {
 			Connection conn = DriverManager.getConnection(url, uName, uPass);
 			Statement stmt = conn.createStatement();
-
+			System.out.println("Query finished, now preparing results with gnuplot");
 			ResultSet rs = stmt.executeQuery("select * from temp.a_citations");
 			return rs;
 		} catch (SQLException ex) {
@@ -215,11 +215,11 @@ public class ConnectToDatabase {
 			SettingsRetrieval SR = new SettingsRetrieval();
 			String dataFile = "filename='" + dataFilePath + "'";
 			String pngFilename = "set output '" + SR.GetParam("WORKSPACE")
-					+ "/out/output.png'";
+					+ "\\out\\output.png'";
 			String templateFilename = "";
 			if (_mode == 1)// 2d+without are selected
 			{
-				templateFilename = "out/2D_NO_HYPERTEXT.txt";
+				templateFilename = "gnuplot_scripts/2D_NO_HYPERTEXT.txt";
 				replace(templateFilename, tmpFileName + "_", "filename=",
 						dataFile);
 				replace(tmpFileName + "_", tmpFileName, "set output ",
@@ -228,7 +228,7 @@ public class ConnectToDatabase {
 						.useDelimiter("\\Z").next();
 			} else if (_mode == 2)// 3d+without are selected
 			{
-				templateFilename = "out/3D_NO_HYPERTEXT.txt";
+				templateFilename = "gnuplot_scripts/3D_NO_HYPERTEXT.txt";
 				replace(templateFilename, "out/temp3D.txt", "filename=",
 						dataFile);
 				replace("out/temp3D.txt", tmpFileName + "_", "layer=", "layer="
@@ -240,7 +240,7 @@ public class ConnectToDatabase {
 			}
 			if (_mode == 3)// 2d+with are selected
 			{
-				templateFilename = "out/2D_WITH_HYPERTEXT.txt";
+				templateFilename = "gnuplot_scripts/2D_WITH_HYPERTEXT.txt";
 				replace(templateFilename, tmpFileName + "_", "filename=",
 						dataFile);
 				replace(tmpFileName + "_", tmpFileName, "set output ",
@@ -250,7 +250,7 @@ public class ConnectToDatabase {
 			}
 			if (_mode == 4)// 3d+with are selected
 			{
-				templateFilename = "out/3D_WITH_HYPERTEXT.txt";
+				templateFilename = "gnuplot_scripts/3D_WITH_HYPERTEXT.txt";
 				replace(templateFilename, "out/temp3D.txt", "filename=",
 						dataFile);
 				replace("out/temp3D.txt", tmpFileName + "_", "layer=", "layer="
